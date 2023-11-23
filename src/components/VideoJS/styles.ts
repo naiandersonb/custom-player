@@ -56,8 +56,9 @@ export const Container = styled.div<VideoProps>`
     width: 100%;
 
     .vjs-progress-holder, .vjs-slider-bar {
-      height: 5px;
+      height: 6px;
       border-radius: 10px;
+      background-color: (255, 255, 255, 0.50);
       color: #1ED6E4;
     }
   }
@@ -69,9 +70,9 @@ export const Container = styled.div<VideoProps>`
 
   .vjs-play-progress:before {
     color: #1ED6E4;
-    font-size: 1em;
+    font-size: 1.2em;
     position: absolute;
-    top: 0.5px;
+    top: 0.8px;
     right: -0.5em;
     line-height: 0.35em;
     z-index: 1;
@@ -183,14 +184,18 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-
   // volume di vídeo
   .vjs-volume-panel {
     grid-area: volume;
     font-size: 13px;
-    
-    .vjs-hover {
-      background-color: red;
+
+    @media(min-width: 480px) {
+      width: 10em;
+
+      .vjs-volume-horizontal {
+        width: 5em;
+        opacity: 1;
+      }
     }
   }
 
