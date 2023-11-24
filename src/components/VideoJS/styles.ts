@@ -184,7 +184,7 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // volume di vídeo
+  // volume do vídeo
   .vjs-volume-panel {
     grid-area: volume;
     font-size: 13px;
@@ -213,7 +213,6 @@ export const Container = styled.div<VideoProps>`
       bottom: 2.5rem;
       text-align: start;
       padding-top: 1rem;
-      
 
       &::-webkit-scrollbar {
         width: 4px;
