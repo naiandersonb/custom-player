@@ -12,6 +12,10 @@ export const Container = styled.div<VideoProps>`
   .video-js {
     width: 100%;
 
+    svg:hover {
+      fill: red !important;
+    }
+
     // align the icons with the video time
     .vjs-time-control {
       line-height: 2.5;
@@ -70,7 +74,7 @@ export const Container = styled.div<VideoProps>`
 
     grid-template-areas: 
       'progress progress progress progress progress progress progress progress progress progress'
-      'backward play forward . time volume pictureInPicture playback quality fullscreen';
+      'backward play forward . time volume pictureInPicture quality playback fullscreen';
 
     @media(max-width: 480px) {
       height: 60px;
@@ -80,6 +84,20 @@ export const Container = styled.div<VideoProps>`
 
   .vjs-quality-selector {
     grid-area: quality;
+
+    background-image: url('/player/quality-selector.svg');
+    background-repeat: no-repeat;
+    background-size: 26px;
+    background-position: 50% calc(50% - 10px);
+
+    @media(max-width: 480px) {
+      background-size: 20px;
+    }
+
+    .vjs-icon-placeholder:before {
+      content: "";
+      display: none;
+    }
   }
 
   // full progress bar
@@ -232,7 +250,7 @@ export const Container = styled.div<VideoProps>`
     grid-area: playback;
     padding: 0;
 
-    background-image: url('/player/quality-video.svg');
+    background-image: url('/player/fast-forward.svg');
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: 50% calc(50% - 10px);
@@ -299,7 +317,7 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // menu de seleção de velocidade de vídeo
+  // video speed selection menu
   .vjs-menu-button-popup {
     .vjs-menu-content {
       background-color: #000000;
