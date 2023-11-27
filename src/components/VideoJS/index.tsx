@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// import vjsqs from "@silvermine/videojs-quality-selector";
+// import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
+
 import videoJs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-quality-levels';
@@ -33,12 +38,11 @@ function formatVideoDuration(durationInSeconds: number): string {
 export const VideoJS = () => {
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
   const [timeTotal, setTimeTotal] = useState('')
+  const urlVideo = "https://customer-93b3xv02xt10uwwp.cloudflarestream.com/5b6e6459e52175a5987d5f7d7674ded2/manifest/video.m3u8"
 
   useEffect(() => {
-    const urlVideo = "https://customer-93b3xv02xt10uwwp.cloudflarestream.com/5b6e6459e52175a5987d5f7d7674ded2/manifest/video.m3u8"
-
     const videoJSOptions = {
-      autoplay: 'muted',
+      autoplay: false,
       controls: true,
       normalizeAutoplay: true,
       width: 1280,
@@ -54,25 +58,21 @@ export const VideoJS = () => {
       userActions: { hotkeys: true },
       playbackRates: [0.5, 1, 1.5, 2, 3],
       controlBar: {
-        qualitySelector: {
-          default: 'HD',
-          options: [
-            {
-              label: 'SD',
-              value: urlVideo,
-            }
-          ]
-        },
         skipButtons: {
           forward: 10,
           backward: 10
         }
-      }
+      },
     };
 
     if (videoPlayerRef.current) {
+      // vjsqs(videoJs);
       const player = videoJs(videoPlayerRef.current, videoJSOptions, () => {
-        player.src(urlVideo);
+        player.src({
+          src: urlVideo,
+          type: 'application/x-mpegURL',
+          withCredentials: false
+        });
 
         player.on('loadeddata', function() {
           if(videoPlayerRef.current) {
@@ -87,7 +87,7 @@ export const VideoJS = () => {
   }, []);
   
   return(
-    <Container timeTotal={timeTotal}>
+    <Container timetotal={timeTotal} maincolor='#1ee460'>
       <video
         style={{ width: "100%" }}
         ref={videoPlayerRef}
@@ -95,6 +95,5 @@ export const VideoJS = () => {
         controls
       />
     </Container>
-
   )
 }

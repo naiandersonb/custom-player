@@ -1,24 +1,30 @@
 import styled from "styled-components";
 
 interface VideoProps {
-  timeTotal: string
+  timetotal: string
+  maincolor: string
 }
 
 export const Container = styled.div<VideoProps>`
   max-width: 1280px;
+  position: relative;
   
   .video-js {
     width: 100%;
 
-    // alinha os icons com o tempo do vídeo
+    // align the icons with the video time
     .vjs-time-control {
-      line-height: 2.5rem;
+      line-height: 2.5;
       padding-right: 0;
+
+      @media(max-width: 480px) {
+        line-height: 1.8;
+      }
     }
   }
 
   .vjs-big-play-button {
-    background-color: #1ED6E4;
+    background-color: ${({ maincolor }) => maincolor};
     width: 86px;
     height: 86px;
     border: none;
@@ -26,26 +32,54 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder::before {
       border-radius: 50%;
-      background-color: #1ED6E4;
+      background-color: ${({ maincolor }) => maincolor};
       display: grid;
       place-items: center;
       font-size: 3rem;
     }
+
+    @media(max-width: 480px) {
+      width: 50px;
+      height: 50px;
+      left: 55%;
+      top: 45%;
+
+      .vjs-icon-placeholder::before {
+        border-radius: 50%;
+        
+        background-color: ${({ maincolor }) => maincolor};
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+      }
+    }
   }
 
   // control bar container
-  .vjs-control-bar {  
-    background-color: transparent;
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,0.5074404761904762) 56%, rgba(255,0,0,0) 100%);
-    display: grid;
-    grid-template-columns: max-content max-content max-content 1fr max-content max-content;
+  .vjs-control-bar {
     width: 100%;
     height: 80px;
 
+    padding-inline: 1rem;
+    background-color: transparent;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,0.5074404761904762) 56%, rgba(255,0,0,0) 100%);
+
+    display: grid;
+    grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content;
+
     grid-template-areas: 
-      'progress progress progress progress progress progress progress progress progress'
-      'backward play forward . time volume pictureInPicture unknown fullscreen';
+      'progress progress progress progress progress progress progress progress progress progress'
+      'backward play forward . time volume pictureInPicture playback quality fullscreen';
+
+    @media(max-width: 480px) {
+      height: 60px;
+      padding-inline: 0;
+    }
+  }
+
+  .vjs-quality-selector {
+    grid-area: quality;
   }
 
   // full progress bar
@@ -59,23 +93,32 @@ export const Container = styled.div<VideoProps>`
       height: 6px;
       border-radius: 10px;
       background-color: (255, 255, 255, 0.50);
-      color: #1ED6E4;
+      color: ${({ maincolor }) => maincolor};
+
+      @media(max-width: 480px) {
+        height: 4px;
+      }
     }
   }
 
   // progress video
   .vjs-play-progress {
-    background-color: #1ED6E4;
+    background-color: ${({ maincolor }) => maincolor};
   }
 
   .vjs-play-progress:before {
-    color: #1ED6E4;
+    color: ${({ maincolor }) => maincolor};
     font-size: 1.2em;
     position: absolute;
     top: 0.8px;
     right: -0.5em;
     line-height: 0.35em;
     z-index: 1;
+
+    @media(max-width: 480px) {
+      top: 0.5px;
+      font-size: 1em;
+    }
   }
 
   .vjs-skip-backward-10 {
@@ -85,6 +128,10 @@ export const Container = styled.div<VideoProps>`
     background-repeat: no-repeat;
     background-size: 26px;
     background-position: 50% calc(50% - 10px);
+
+    @media(max-width: 480px) {
+      background-size: 20px;
+    }
 
     .vjs-icon-placeholder:before {
       content: "";
@@ -100,6 +147,10 @@ export const Container = styled.div<VideoProps>`
     background-size: 26px;
     background-position: 50% calc(50% - 10px);
 
+    @media(max-width: 480px) {
+      background-size: 20px;
+    }
+
     .vjs-icon-placeholder:before {
       content: "";
       display: none;
@@ -109,6 +160,7 @@ export const Container = styled.div<VideoProps>`
   // Play pause icons
   .vjs-play-control {
     grid-area: play;
+    background-image: url('/player/play.svg');
 
     &.vjs-paused {
       background-image: url('/player/play.svg');
@@ -116,27 +168,35 @@ export const Container = styled.div<VideoProps>`
 
     &.vjs-playing {
       background-image: url('/player/pause.svg');
-      
+    }
+
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 50% calc(50% - 10px);
+
+    @media(max-width: 480px) {
+      background-size: 20px;
     }
     
     .vjs-icon-placeholder:before {
       content: "";
       display: none;
     }
-
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: 50% calc(50% - 10px);
   }
 
   // picture in picture icon
   .vjs-picture-in-picture-control {
     grid-area: pictureInPicture;
+    margin-left: -11px;
 
     background-image: url('/player/picture-in-picture.svg');
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: 50% calc(50% - 10px);
+
+    @media(max-width: 480px) {
+      background-size: 20px;
+    }
 
     .vjs-icon-placeholder:before {
       content: "";
@@ -150,8 +210,13 @@ export const Container = styled.div<VideoProps>`
 
     background-image: url('/player/fullscreen.svg');
     background-repeat: no-repeat;
-    background-size: 18px;
+    background-size: 20px;
     background-position: 50% calc(50% - 12px);
+
+    @media(max-width: 480px) {
+      background-size: 15px;
+      margin-top: 1px;
+    }
 
     .vjs-icon-placeholder:before {
       content: "";
@@ -164,37 +229,72 @@ export const Container = styled.div<VideoProps>`
   }
 
   .vjs-playback-rate {
-    grid-area: unknown;
+    grid-area: playback;
+    padding: 0;
+
     background-image: url('/player/quality-video.svg');
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: 50% calc(50% - 10px);
-  }
 
-  // tempo do vídeo
-  .vjs-remaining-time {
-    grid-area: time;
-    font-size: 1rem;
+    @media(max-width: 480px) {
+      background-size: 18px;
+      width: 25px;
+    }
 
-    @media(min-width: 480px) {
-      .vjs-remaining-time-display:after {
-        content: ${({ timeTotal }) => `' / ${timeTotal}'`};
-        color: #6B6B6B;
-      }
+    &.vjs-icon-placeholder:before {
+      content: "";
+      display: none;
     }
   }
 
-  // volume do vídeo
+  // video time
+  .vjs-remaining-time {
+    grid-area: time;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+
+    @media(min-width: 480px) {
+      font-size: 1rem;
+
+      .vjs-remaining-time-display:after {
+        content: ${({ timetotal }) => `' / ${timetotal}'`};
+        color: #6B6B6B;
+      }
+    }
+
+
+  }
+
+  // video volume
   .vjs-volume-panel {
     grid-area: volume;
-    font-size: 13px;
+
+    .vjs-slider, .vjs-volume-level {
+      border-radius: 30px;
+    }
+
+    .vjs-volume-level {
+      background-color: ${({ maincolor }) => maincolor};
+
+      &:before {
+        color: ${({ maincolor }) => maincolor };
+      }
+    }
 
     @media(min-width: 480px) {
       width: 10em;
+      font-size: 13px;
 
       .vjs-volume-horizontal {
         width: 5em;
         opacity: 1;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .vjs-icon-placeholder:before {
+        line-height: 1.4;
       }
     }
   }
