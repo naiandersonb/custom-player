@@ -1,3 +1,8 @@
+// exemplo:
+// https://codesandbox.io/p/sandbox/react-v2gkh?file=%2Fsrc%2FApp.js%3A50%2C4-52%2C7
+
+// ---------------------------------------------------------------
+
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -89,7 +94,7 @@ export const VideoJS = () => {
 
   const videoJsOptions = useMemo(() => {
     return {
-      autoplay: 'muted',
+      autoplay: false,
       aspectRatio: '16:9',
       playbackRates: [0.5, 1, 1.5, 2, 3],
       normalizeAutoplay: true,
@@ -108,37 +113,47 @@ export const VideoJS = () => {
           src:
             "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
           type: "application/x-mpegURL",
-          label: "HDd",
+          label: "1080p",
+          selected: true,
           res: 720
         },
         {
           src: "https://customer-93b3xv02xt10uwwp.cloudflarestream.com/5b6e6459e52175a5987d5f7d7674ded2/manifest/video.m3u8",
           type: "application/x-mpegURL",
-          label: "HD2",
+          label: "720p",
+          selected: false,
           res: 720
         }
       ]
     }
   }, []);
-  
+
   useEffect(() => {
     if(videoPlayerRef.current) {
       vjsqs(videoJs);
       const player = videoJs(videoPlayerRef.current, videoJsOptions, () => {
-      
         player.on('loadeddata', function() {
           if(videoPlayerRef.current) {
             const duration = formatVideoDuration(videoPlayerRef.current.duration)
             setTimeTotal(duration)
           }
         });
+
+        player.on("ended", () => {
+          alert('video finalizado')
+        });
+
+        player.on("pause", () => {
+          let currentTime = '0';
+          currentTime = formatVideoDuration(player.currentTime()!)
+          console.log('tempo atual:', { currentTime })
+        });
       });
     }
-    return () => {};
   }, [videoJsOptions]);
   
   return(
-    <Container timetotal={timeTotal} maincolor='#1ee460'>
+    <Container timetotal={timeTotal} maincolor='#e4951e'>
       <video
         style={{ width: "100%" }}
         ref={videoPlayerRef}

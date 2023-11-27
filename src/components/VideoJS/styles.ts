@@ -8,13 +8,19 @@ interface VideoProps {
 export const Container = styled.div<VideoProps>`
   max-width: 1280px;
   position: relative;
-  
+
   .video-js {
     width: 100%;
+    position: relative;
 
-    svg:hover {
-      fill: red !important;
-    }
+    /* &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: rgb(0,0,0);
+      background: linear-gradient(0deg, rgba(0,0,0,0.5074404761904762) 56%, rgba(255,0,0,0) 100%);
+    } */
 
     // align the icons with the video time
     .vjs-time-control {
@@ -66,8 +72,9 @@ export const Container = styled.div<VideoProps>`
 
     padding-inline: 1rem;
     background-color: transparent;
+
     background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,0.5074404761904762) 56%, rgba(255,0,0,0) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3477766106442577) 100%);
 
     display: grid;
     grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content;
@@ -82,8 +89,82 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
+  // video speed selection menu
+  .vjs-menu-button-popup {
+    .vjs-menu-content {
+      background-color: #000000;
+      width: 250px;
+      max-height: 16rem;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      bottom: 2.5rem;
+      text-align: start;
+      padding-top: 1rem;
+
+      @media(max-width: 480px) {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #121212;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+  
+      .vjs-menu-item {
+        position: relative;
+        text-align: start;
+        display: flex;
+        justify-content: flex-start;
+        padding: 0.4rem 2rem;
+        font-size: 12px;
+
+        &:hover {
+          background-color: #000;
+        }
+
+        &.vjs-selected:before {
+          content: ' ';
+          width: 1rem;
+          height: 1rem;
+          background-image: url('/player/check.svg');
+          background-repeat: no-repeat;
+          background-size: 15px;
+          position: absolute;
+          left: 0.5rem;
+        }
+
+        &.vjs-selected, &.vjs-selected:hover {
+          background-color: transparent;
+          color: #fff;
+        }
+
+        &:nth-child(1) {
+          margin-top: 25px;
+        }
+      }
+    } 
+  }
+
   .vjs-quality-selector {
     grid-area: quality;
+    position: relative;
 
     background-image: url('/player/quality-selector.svg');
     background-repeat: no-repeat;
@@ -97,6 +178,18 @@ export const Container = styled.div<VideoProps>`
     .vjs-icon-placeholder:before {
       content: "";
       display: none;
+    }
+    
+    & > .vjs-menu > .vjs-menu-content:before {
+      height: 24px;
+      padding: 0 1rem 0 0;
+      content: 'Qualidade de reprodução';
+      border-bottom: 1px solid #E3E5E833;
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      text-align: start;
+      justify-content: flex-start;
     }
   }
 
@@ -213,7 +306,7 @@ export const Container = styled.div<VideoProps>`
     background-position: 50% calc(50% - 10px);
 
     @media(max-width: 480px) {
-      background-size: 20px;
+      background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
@@ -248,6 +341,7 @@ export const Container = styled.div<VideoProps>`
 
   .vjs-playback-rate {
     grid-area: playback;
+    position: relative;
     padding: 0;
 
     background-image: url('/player/fast-forward.svg');
@@ -264,6 +358,18 @@ export const Container = styled.div<VideoProps>`
       content: "";
       display: none;
     }
+
+    & > .vjs-menu > .vjs-menu-content:before {
+      height: 24px;
+      padding: 0 1rem 0 0;
+      content: 'Velocidade de reprodução';
+      border-bottom: 1px solid #E3E5E833;
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      text-align: start;
+      justify-content: flex-start;
+    }
   }
 
   // video time
@@ -277,7 +383,7 @@ export const Container = styled.div<VideoProps>`
 
       .vjs-remaining-time-display:after {
         content: ${({ timetotal }) => `' / ${timetotal}'`};
-        color: #6B6B6B;
+        color: #ced4da;
       }
     }
 
@@ -315,79 +421,5 @@ export const Container = styled.div<VideoProps>`
         line-height: 1.4;
       }
     }
-  }
-
-  // video speed selection menu
-  .vjs-menu-button-popup {
-    .vjs-menu-content {
-      background-color: #000000;
-      width: 250px;
-      max-height: 16rem;
-      border-radius: 5px;
-      font-size: 0.75rem;
-      position: absolute;
-      z-index: 10;
-      right: 0;
-      bottom: 2.5rem;
-      text-align: start;
-      padding-top: 1rem;
-
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #121212;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #888;
-      }
-
-      &:before {
-        height: 24px;
-        padding: 0 1rem 0 0;
-        content: 'Velocidade de reprodução';
-        border-bottom: 1px solid #E3E5E833;
-        position: absolute;
-        left: 1rem;
-        right: 1rem;
-        text-align: start;
-        justify-content: flex-start;
-      }
-  
-      .vjs-menu-item {
-        position: relative;
-        text-align: start;
-        display: flex;
-        justify-content: flex-start;
-        padding: 0.4rem 2rem;
-        font-size: 12px;
-
-        &:hover {
-          background-color: #000;
-        }
-
-        &.vjs-selected:before {
-          content: ' ';
-          width: 1rem;
-          height: 1rem;
-          background-image: url('/player/check.svg');
-          background-repeat: no-repeat;
-          background-size: 15px;
-          position: absolute;
-          left: 0.5rem;
-        }
-
-        &.vjs-selected, &.vjs-selected:hover {
-          background-color: transparent;
-          color: #fff;
-        }
-
-        &:nth-child(1) {
-          margin-top: 25px;
-        }
-      }
-    } 
   }
 `
