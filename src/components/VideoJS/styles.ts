@@ -13,15 +13,6 @@ export const Container = styled.div<VideoProps>`
     width: 100%;
     position: relative;
 
-    /* &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      background: rgb(0,0,0);
-      background: linear-gradient(0deg, rgba(0,0,0,0.5074404761904762) 56%, rgba(255,0,0,0) 100%);
-    } */
-
     // align the icons with the video time
     .vjs-time-control {
       line-height: 2.5;
@@ -97,10 +88,7 @@ export const Container = styled.div<VideoProps>`
       max-height: 16rem;
       border-radius: 5px;
       font-size: 0.75rem;
-      position: absolute;
-      z-index: 10;
-      right: 0;
-      bottom: 2.5rem;
+      bottom: 4.5rem;
       text-align: start;
       padding-top: 1rem;
 
@@ -178,6 +166,25 @@ export const Container = styled.div<VideoProps>`
     .vjs-icon-placeholder:before {
       content: "";
       display: none;
+    }
+
+    & > .vjs-menu > .vjs-menu-content {
+      position: absolute;
+      z-index: 10;
+      right: 2rem;
+    }
+
+    & > .vjs-menu:after {
+      content: '';
+      width: 14px;
+      height: 14px;
+      background-color: red;
+      background-color: #000000;
+      position: absolute;
+      bottom: 4.2rem;
+      right: 2.8rem;
+      z-index: 10;
+      transform: rotate(45deg);
     }
     
     & > .vjs-menu > .vjs-menu-content:before {
@@ -298,11 +305,12 @@ export const Container = styled.div<VideoProps>`
   // picture in picture icon
   .vjs-picture-in-picture-control {
     grid-area: pictureInPicture;
-    margin-left: -11px;
+    margin-left: -9px;
+    margin-top: 1px;
 
     background-image: url('/player/picture-in-picture.svg');
     background-repeat: no-repeat;
-    background-size: 24px;
+    background-size: 28px;
     background-position: 50% calc(50% - 10px);
 
     @media(max-width: 480px) {
@@ -357,6 +365,25 @@ export const Container = styled.div<VideoProps>`
     &.vjs-icon-placeholder:before {
       content: "";
       display: none;
+    }
+
+    & > .vjs-menu > .vjs-menu-content {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+    }
+
+    & > .vjs-menu:after {
+      content: '';
+      width: 14px;
+      height: 14px;
+      background-color: red;
+      background-color: #000000;
+      position: absolute;
+      bottom: 4.2rem;
+      right: 0.8rem;
+      z-index: 10;
+      transform: rotate(45deg);
     }
 
     & > .vjs-menu > .vjs-menu-content:before {

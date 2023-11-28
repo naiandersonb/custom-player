@@ -43,54 +43,6 @@ function formatVideoDuration(durationInSeconds: number): string {
 export const VideoJS = () => {
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
   const [timeTotal, setTimeTotal] = useState('')
-  // const urlVideo = "https://customer-93b3xv02xt10uwwp.cloudflarestream.com/5b6e6459e52175a5987d5f7d7674ded2/manifest/video.m3u8"
-
-  // useEffect(() => {
-  //   const videoJSOptions = {
-  //     autoplay: false,
-  //     controls: true,
-  //     normalizeAutoplay: true,
-  //     width: 1280,
-  //     height: 720,
-  //     aspectRatio: '16:9',
-  //     sources: [
-  //       {
-  //         src: urlVideo,
-  //         type: 'application/x-mpegURL',
-  //         label: 'HD'
-  //       }
-  //     ],
-  //     userActions: { hotkeys: true },
-  //     playbackRates: [0.5, 1, 1.5, 2, 3],
-  //     controlBar: {
-  //       qualitySelector: {},
-  //       skipButtons: {
-  //         forward: 10,
-  //         backward: 10
-  //       }
-  //     },
-  //   };
-
-  //   if (videoPlayerRef.current) {
-  //     vjsqs(videoJs);
-  //     const player = videoJs(videoPlayerRef.current, videoJSOptions, () => {
-  //       player.src({
-  //         src: urlVideo,
-  //         type: 'application/x-mpegURL',
-  //         withCredentials: false
-  //       });
-
-  //       player.on('loadeddata', function() {
-  //         if(videoPlayerRef.current) {
-  //           const duration = formatVideoDuration(videoPlayerRef.current.duration)
-  //           setTimeTotal(duration)
-  //         }
-  //        });
-  //     });
-  //   }
-
-  //   return () => {};
-  // }, []);
 
   const videoJsOptions = useMemo(() => {
     return {
@@ -115,7 +67,7 @@ export const VideoJS = () => {
           type: "application/x-mpegURL",
           label: "1080p",
           selected: true,
-          res: 720
+          res: 1080
         },
         {
           src: "https://customer-93b3xv02xt10uwwp.cloudflarestream.com/5b6e6459e52175a5987d5f7d7674ded2/manifest/video.m3u8",
