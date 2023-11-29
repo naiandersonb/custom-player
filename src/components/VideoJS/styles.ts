@@ -150,6 +150,7 @@ export const Container = styled.div<VideoProps>`
     } 
   }
 
+  // ⚙
   .vjs-quality-selector {
     grid-area: quality;
     position: relative;
@@ -168,25 +169,28 @@ export const Container = styled.div<VideoProps>`
       display: none;
     }
 
-    & > .vjs-menu > .vjs-menu-content {
-      position: absolute;
-      z-index: 10;
-      right: 2rem;
-    }
+    @media(min-width: 480px) {
+      & > .vjs-menu > .vjs-menu-content {
+        position: absolute;
+        z-index: 10;
+        right: 2rem;
+      }
 
-    & > .vjs-menu:after {
-      content: '';
-      width: 14px;
-      height: 14px;
-      background-color: red;
-      background-color: #000000;
-      position: absolute;
-      bottom: 4.2rem;
-      right: 2.8rem;
-      z-index: 10;
-      transform: rotate(45deg);
+      & > .vjs-menu:after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        background-color: red;
+        background-color: #000000;
+        position: absolute;
+        bottom: 4.2rem;
+        right: 2.8rem;
+        z-index: 10;
+        transform: rotate(45deg);
+      }
     }
     
+   
     & > .vjs-menu > .vjs-menu-content:before {
       height: 24px;
       padding: 0 1rem 0 0;
@@ -367,24 +371,27 @@ export const Container = styled.div<VideoProps>`
       display: none;
     }
 
-    & > .vjs-menu > .vjs-menu-content {
-      position: absolute;
-      z-index: 10;
-      right: 0;
+    @media(min-width: 480px) {
+      & > .vjs-menu > .vjs-menu-content {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+      }
+  
+      & > .vjs-menu:after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        background-color: red;
+        background-color: #000000;
+        position: absolute;
+        bottom: 4.2rem;
+        right: 0.8rem;
+        z-index: 10;
+        transform: rotate(45deg);
+      }
     }
 
-    & > .vjs-menu:after {
-      content: '';
-      width: 14px;
-      height: 14px;
-      background-color: red;
-      background-color: #000000;
-      position: absolute;
-      bottom: 4.2rem;
-      right: 0.8rem;
-      z-index: 10;
-      transform: rotate(45deg);
-    }
 
     & > .vjs-menu > .vjs-menu-content:before {
       height: 24px;
@@ -409,7 +416,7 @@ export const Container = styled.div<VideoProps>`
       font-size: 1rem;
 
       .vjs-remaining-time-display:after {
-        content: ${({ timetotal }) => `' / ${timetotal}'`};
+        content: ${({ timetotal }) => `'${timetotal}'`};
         color: #ced4da;
       }
     }

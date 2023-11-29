@@ -16,7 +16,9 @@ import 'videojs-contrib-quality-levels';
 
 import { Container } from "./styles";
 
-function formatVideoDuration(durationInSeconds: number): string {
+function formatVideoDuration(durationInSeconds: number | undefined): string {
+  if(durationInSeconds === undefined) return '';
+  
   const hours = Math.floor(durationInSeconds / 3600);
   const minutes = Math.floor((durationInSeconds % 3600) / 60);
   const seconds = Math.floor(durationInSeconds % 60);
@@ -83,12 +85,20 @@ export const VideoJS = () => {
   useEffect(() => {
     if(videoPlayerRef.current) {
       vjsqs(videoJs);
+
+      videoJs.addLanguage('en', {
+        'Skip backward 10 seconds': 'Retroceder 10 segundos',
+        'Skip forward 10 seconds': 'Avançar 10 segundos',
+        'Open quality selector menu': 'Seletor de qualidade',
+        'Playback Rate': 'Velocidade de reprodução',
+        'Mute': 'Volume'
+      });
+
       const player = videoJs(videoPlayerRef.current, videoJsOptions, () => {
+
         player.on('loadeddata', function() {
-          if(videoPlayerRef.current) {
-            const duration = formatVideoDuration(videoPlayerRef.current.duration)
+            const duration = ` / ${formatVideoDuration(player.duration())}`
             setTimeTotal(duration)
-          }
         });
 
         player.on("ended", () => {
@@ -97,13 +107,14 @@ export const VideoJS = () => {
 
         player.on("pause", () => {
           let currentTime = '0';
-          currentTime = formatVideoDuration(player.currentTime()!)
+          if(videoPlayerRef.current) console.log('duration: ', videoPlayerRef.current.duration)
+          currentTime = formatVideoDuration(player.currentTime())
           console.log('tempo atual:', { currentTime })
         });
       });
     }
   }, [videoJsOptions]);
-  
+
   return(
     <Container timetotal={timeTotal} maincolor='#e4951e'>
       <video
