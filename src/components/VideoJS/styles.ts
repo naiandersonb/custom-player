@@ -12,6 +12,12 @@ export const Container = styled.div<VideoProps>`
   .video-js {
     width: 100%;
     position: relative;
+    
+    // altera o estilo de todos os botões do layout
+    /* .vjs-button {
+      height: 40px;
+      background-color: red;
+    } */  
 
     // align the icons with the video time
     .vjs-time-control {
@@ -80,7 +86,7 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // video speed selection menu
+  // ⚙ video speed selection menu
   .vjs-menu-button-popup {
     .vjs-menu-content {
       background-color: #000000;
@@ -150,7 +156,7 @@ export const Container = styled.div<VideoProps>`
     } 
   }
 
-  // ⚙
+  // 💠
   .vjs-quality-selector {
     grid-area: quality;
     position: relative;
@@ -243,16 +249,17 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
+  // ⏮
   .vjs-skip-backward-10 {
     grid-area: backward;
 
     background-image: url('/player/backward.svg');
     background-repeat: no-repeat;
-    background-size: 26px;
+    background-size: 28px;
     background-position: 50% calc(50% - 10px);
 
     @media(max-width: 480px) {
-      background-size: 20px;
+      background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
@@ -261,16 +268,17 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
+  // ⏭
   .vjs-skip-forward-10 {
     grid-area: forward;
 
     background-image: url('/player/forward.svg');
     background-repeat: no-repeat;
-    background-size: 26px;
+    background-size: 30px;
     background-position: 50% calc(50% - 10px);
 
     @media(max-width: 480px) {
-      background-size: 20px;
+      background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
@@ -279,7 +287,7 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // Play pause icons
+  // ⏯
   .vjs-play-control {
     grid-area: play;
     background-image: url('/player/play.svg');
@@ -306,10 +314,9 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // picture in picture icon
+  // 🎴
   .vjs-picture-in-picture-control {
     grid-area: pictureInPicture;
-    margin-left: -9px;
     margin-top: 1px;
 
     background-image: url('/player/picture-in-picture.svg');
@@ -327,7 +334,7 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  // fullscreen icon
+  // 📺
   .vjs-fullscreen-control {
     grid-area: fullscreen;
 
@@ -351,6 +358,7 @@ export const Container = styled.div<VideoProps>`
     display: none;
   }
 
+  // 🕣
   .vjs-playback-rate {
     grid-area: playback;
     position: relative;
@@ -358,11 +366,11 @@ export const Container = styled.div<VideoProps>`
 
     background-image: url('/player/fast-forward.svg');
     background-repeat: no-repeat;
-    background-size: 20px;
+    background-size: 26px;
     background-position: 50% calc(50% - 10px);
 
     @media(max-width: 480px) {
-      background-size: 18px;
+      background-size: 20px;
       width: 25px;
     }
 
