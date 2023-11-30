@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:05.000 --> 00:00:10.000
+Bem-vindo ao Exemplo VTT
+
+00:00:12.000 --> 00:00:18.000
+Este é um pequeno exemplo de um arquivo VTT.
+
+00:00:20.000 --> 00:00:25.000
+Você pode usá-lo para adicionar legendas a vídeos.
+
+00:00:27.000 --> 00:00:33.000
+As legendas são sincronizadas com os tempos no vídeo.
+
+00:00:35.000 --> 00:00:40.000
+É um formato simples e amplamente suportado.
+
+00:00:42.000 --> 00:00:48.000
+Espero que isso tenha sido útil!

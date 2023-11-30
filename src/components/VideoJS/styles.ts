@@ -74,11 +74,11 @@ export const Container = styled.div<VideoProps>`
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3477766106442577) 100%);
 
     display: grid;
-    grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content;
+    grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content max-content;
 
     grid-template-areas: 
-      'progress progress progress progress progress progress progress progress progress progress'
-      'backward play forward . time volume pictureInPicture quality playback fullscreen';
+      'progress progress progress progress progress progress progress progress progress progress progress'
+      'backward play forward . time volume subsCaps quality playback pictureInPicture fullscreen';
 
     @media(max-width: 480px) {
       height: 60px;
@@ -209,6 +209,88 @@ export const Container = styled.div<VideoProps>`
       justify-content: flex-start;
     }
   }
+
+  // 📜 legends / captions
+  .vjs-subs-caps-button {
+    grid-area: subsCaps;
+    position: relative;
+
+    background-image: url('/player/caption.svg');
+    background-repeat: no-repeat;
+    background-size: 26px;
+    background-position: 50% calc(50% - 10px);
+
+    @media(max-width: 480px) {
+      background-size: 20px;
+    }
+
+    .vjs-icon-placeholder:before {
+      content: "";
+      display: none;
+    }
+
+    @media(min-width: 480px) {
+      & > .vjs-menu > .vjs-menu-content {
+        position: absolute;
+        z-index: 10;
+        right: 2rem;
+      }
+
+      & > .vjs-menu:after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        background-color: red;
+        background-color: #000000;
+        position: absolute;
+        bottom: 4.2rem;
+        right: 2.8rem;
+        z-index: 10;
+        transform: rotate(45deg);
+      }
+    }
+    
+   
+    & > .vjs-menu > .vjs-menu-content:before {
+      height: 24px;
+      padding: 0 1rem 0 0;
+      content: 'Qualidade de reprodução';
+      border-bottom: 1px solid #E3E5E833;
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      text-align: start;
+      justify-content: flex-start;
+    }
+  }
+
+  // modal de configuração de legendas
+  .vjs-text-track-settings {
+    .vjs-modal-dialog-content {
+      & select {
+        border-radius: 5px;
+        padding: 0.5rem;
+      }
+
+      .vjs-default-button, .vjs-done-button {
+        padding: 0.5rem;
+      }
+
+      @media(max-width: 480px) {
+        .vjs-text-track-settings {
+          height: 100%;
+        }
+      }
+    }
+
+    @media(max-width: 480px) {
+        height: 100%;
+    }
+  }
+
+  
+
+  
 
   // full progress bar
   .vjs-progress-control {

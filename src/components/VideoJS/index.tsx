@@ -15,36 +15,21 @@ import 'video.js/dist/video-js.css';
 import 'videojs-contrib-quality-levels';
 
 import { Container } from "./styles";
-
-function formatVideoDuration(durationInSeconds: number | undefined): string {
-  if(durationInSeconds === undefined) return '';
-  
-  const hours = Math.floor(durationInSeconds / 3600);
-  const minutes = Math.floor((durationInSeconds % 3600) / 60);
-  const seconds = Math.floor(durationInSeconds % 60);
-
-  const formatUnit = (unit: number): string => {
-    return unit < 10 ? `0${unit}` : `${unit}`;
-  };
-
-  const formattedHours = formatUnit(hours);
-  const formattedMinutes = formatUnit(minutes);
-  const formattedSeconds = formatUnit(seconds);
-
-  let timeTotal = '';
-
-  if(formattedHours !== '00') {
-    timeTotal = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
-  } else {
-    timeTotal = `${formattedMinutes}:${formattedSeconds}`
-  }
-    
-  return  timeTotal;
-}
+import { formatVideoDuration } from "../../utils";
 
 export const VideoJS = () => {
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const playerRef = useRef<any>()
   const [timeTotal, setTimeTotal] = useState('')
+
+  const captionOption = useMemo(() => {
+    return {
+      srclang: 'pt',
+      label: 'Português',
+      src: '/example.vtt',
+    };
+  }, [])
 
   const videoJsOptions = useMemo(() => {
     return {
@@ -79,27 +64,42 @@ export const VideoJS = () => {
           res: 720
         }
       ]
-    }
-  }, []);
+    };
+  }, [])
 
   useEffect(() => {
-    if(videoPlayerRef.current) {
+    if(videoPlayerRef.current && !playerRef.current) {
       vjsqs(videoJs);
 
       videoJs.addLanguage('en', {
+        'Reset': 'Resetar',
+        'Color': 'Cor',
+        'Opacity': 'Opacidade',
+        'Text': 'Texto',
+        'Font Size': 'Tamanho da fonte',
+        'Font Family': 'Fonte',
+        'Text Background': 'Plano de fundo do texto',
+        'Caption Area Background': 'Fundo da área de legenda',
+        'Text Edge Style': 'Plano de fundo do texto',
+        'Done': 'Aplicar',
+        'captions settings': 'Configurar legenda',
+        'captions off': 'Desativar legenda',
         'Skip backward 10 seconds': 'Retroceder 10 segundos',
         'Skip forward 10 seconds': 'Avançar 10 segundos',
         'Open quality selector menu': 'Seletor de qualidade',
         'Playback Rate': 'Velocidade de reprodução',
-        'Mute': 'Volume'
+        'Mute': 'Volume',
+        'White': 'Branco',
       });
+      
 
-      const player = videoJs(videoPlayerRef.current, videoJsOptions, () => {
-
+      const player = (playerRef.current = videoJs(videoPlayerRef.current, videoJsOptions, () => {
         player.on('loadeddata', function() {
             const duration = ` / ${formatVideoDuration(player.duration())}`
             setTimeTotal(duration)
         });
+
+        player.addRemoteTextTrack(captionOption, true);
 
         player.on("ended", () => {
           alert('video finalizado')
@@ -111,9 +111,10 @@ export const VideoJS = () => {
           currentTime = formatVideoDuration(player.currentTime())
           console.log('tempo atual:', { currentTime })
         });
-      });
+      }))
     }
-  }, [videoJsOptions]);
+  }, [captionOption, videoJsOptions]);
+
 
   return(
     <Container timetotal={timeTotal} maincolor='#e4951e'>
