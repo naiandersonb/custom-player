@@ -50,6 +50,14 @@ export const VideoJS = () => {
       sources: [
         {
           src:
+            "https://vz-23fa8c41-cba.b-cdn.net/8be7d468-e067-4aea-8dfd-a38cd780ba78/playlist.m3u8",
+          type: "application/x-mpegURL",
+          label: "1440p",
+          selected: true,
+          res: 1440
+        },
+        {
+          src:
             "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
           type: "application/x-mpegURL",
           label: "1080p",
@@ -117,7 +125,7 @@ export const VideoJS = () => {
 
 
   return(
-    <Container timetotal={timeTotal} maincolor='#e4951e'>
+    <Container time={timeTotal} color='#e4951e'>
       <video
         style={{ width: "100%" }}
         ref={videoPlayerRef}

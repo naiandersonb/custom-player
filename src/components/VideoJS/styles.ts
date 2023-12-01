@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { arrow, grid, image, insideIcon, menuContent, size } from "./mixins";
 
 interface VideoProps {
-  timetotal: string
-  maincolor: string
+  time: string
+  color: string
 }
 
 export const Container = styled.div<VideoProps>`
@@ -13,10 +14,9 @@ export const Container = styled.div<VideoProps>`
     width: 100%;
     position: relative;
     
-    // altera o estilo de todos os botões do layout
+    // changes the style of all buttons in the layout
     /* .vjs-button {
       height: 40px;
-      background-color: red;
     } */  
 
     // align the icons with the video time
@@ -31,30 +31,29 @@ export const Container = styled.div<VideoProps>`
   }
 
   .vjs-big-play-button {
-    background-color: ${({ maincolor }) => maincolor};
-    width: 86px;
-    height: 86px;
+    background-color: ${({ color }) => color};
+    ${size({height: '86px', width: '86px'})}
     border: none;
     border-radius: 50%;
 
     .vjs-icon-placeholder::before {
       border-radius: 50%;
-      background-color: ${({ maincolor }) => maincolor};
+      background-color: ${({ color }) => color};
       display: grid;
       place-items: center;
       font-size: 3rem;
     }
 
     @media(max-width: 480px) {
-      width: 50px;
-      height: 50px;
+      ${size({height: '50px', width: '50px'})}
+      
       left: 55%;
       top: 45%;
 
       .vjs-icon-placeholder::before {
         border-radius: 50%;
         
-        background-color: ${({ maincolor }) => maincolor};
+        background-color: ${({ color }) => color};
         display: grid;
         place-items: center;
         font-size: 1.5rem;
@@ -64,21 +63,14 @@ export const Container = styled.div<VideoProps>`
 
   // control bar container
   .vjs-control-bar {
-    width: 100%;
-    height: 80px;
+    ${size({height: '80px', width: '100%'})}
 
     padding-inline: 1rem;
-    background-color: transparent;
 
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3477766106442577) 100%);
 
-    display: grid;
-    grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content max-content;
-
-    grid-template-areas: 
-      'progress progress progress progress progress progress progress progress progress progress progress'
-      'backward play forward . time volume subsCaps quality playback pictureInPicture fullscreen';
+    ${grid}
 
     @media(max-width: 480px) {
       height: 60px;
@@ -89,8 +81,9 @@ export const Container = styled.div<VideoProps>`
   // ⚙ video speed selection menu
   .vjs-menu-button-popup {
     .vjs-menu-content {
-      background-color: #000000;
       width: 250px;
+
+      background-color: #000000;
       max-height: 16rem;
       border-radius: 5px;
       font-size: 0.75rem;
@@ -99,12 +92,13 @@ export const Container = styled.div<VideoProps>`
       padding-top: 1rem;
 
       @media(max-width: 480px) {
+        ${size({height: '100vh', width: '100%'})}
+
         position: fixed;
         bottom: 0;
         right: 0;
         left: 0;
-        height: 100vh;
-        width: 100%;
+
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
@@ -135,11 +129,13 @@ export const Container = styled.div<VideoProps>`
 
         &.vjs-selected:before {
           content: ' ';
-          width: 1rem;
-          height: 1rem;
+
+          ${size({height: '1rem', width: '1rem'})}
+
           background-image: url('/player/check.svg');
           background-repeat: no-repeat;
           background-size: 15px;
+
           position: absolute;
           left: 0.5rem;
         }
@@ -161,18 +157,16 @@ export const Container = styled.div<VideoProps>`
     grid-area: quality;
     position: relative;
 
-    background-image: url('/player/quality-selector.svg');
-    background-repeat: no-repeat;
-    background-size: 26px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/quality-selector.svg', size: '26px' })}
 
     @media(max-width: 480px) {
       background-size: 20px;
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
 
     @media(min-width: 480px) {
@@ -183,30 +177,12 @@ export const Container = styled.div<VideoProps>`
       }
 
       & > .vjs-menu:after {
-        content: '';
-        width: 14px;
-        height: 14px;
-        background-color: red;
-        background-color: #000000;
-        position: absolute;
-        bottom: 4.2rem;
-        right: 2.8rem;
-        z-index: 10;
-        transform: rotate(45deg);
+        ${arrow({right: '2.8rem'})}
       }
     }
     
-   
     & > .vjs-menu > .vjs-menu-content:before {
-      height: 24px;
-      padding: 0 1rem 0 0;
-      content: 'Qualidade de reprodução';
-      border-bottom: 1px solid #E3E5E833;
-      position: absolute;
-      left: 0.5rem;
-      right: 0.5rem;
-      text-align: start;
-      justify-content: flex-start;
+      ${menuContent({ title: 'Qualidade de reprodução' })}
     }
   }
 
@@ -215,18 +191,16 @@ export const Container = styled.div<VideoProps>`
     grid-area: subsCaps;
     position: relative;
 
-    background-image: url('/player/caption.svg');
-    background-repeat: no-repeat;
-    background-size: 26px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/caption.svg', size: '26px' })}
 
     @media(max-width: 480px) {
       background-size: 20px;
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
 
     @media(min-width: 480px) {
@@ -237,34 +211,17 @@ export const Container = styled.div<VideoProps>`
       }
 
       & > .vjs-menu:after {
-        content: '';
-        width: 14px;
-        height: 14px;
-        background-color: red;
-        background-color: #000000;
-        position: absolute;
-        bottom: 4.2rem;
-        right: 2.8rem;
-        z-index: 10;
-        transform: rotate(45deg);
+        ${arrow({right: '2.8rem'})}
       }
     }
     
    
     & > .vjs-menu > .vjs-menu-content:before {
-      height: 24px;
-      padding: 0 1rem 0 0;
-      content: 'Qualidade de reprodução';
-      border-bottom: 1px solid #E3E5E833;
-      position: absolute;
-      left: 0.5rem;
-      right: 0.5rem;
-      text-align: start;
-      justify-content: flex-start;
+      ${menuContent({ title: 'Configurar legenda' })}
     }
   }
 
-  // modal de configuração de legendas
+  // subtitles configuration modal
   .vjs-text-track-settings {
     .vjs-modal-dialog-content {
       & select {
@@ -288,13 +245,10 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
-  
-
-  
-
   // full progress bar
   .vjs-progress-control {
     grid-area: progress;
+
     place-items: start;
     border-radius: 10px;
     width: 100%;
@@ -303,7 +257,7 @@ export const Container = styled.div<VideoProps>`
       height: 6px;
       border-radius: 10px;
       background-color: (255, 255, 255, 0.50);
-      color: ${({ maincolor }) => maincolor};
+      color: ${({ color }) => color};
 
       @media(max-width: 480px) {
         height: 4px;
@@ -313,11 +267,11 @@ export const Container = styled.div<VideoProps>`
 
   // progress video
   .vjs-play-progress {
-    background-color: ${({ maincolor }) => maincolor};
+    background-color: ${({ color }) => color};
   }
 
   .vjs-play-progress:before {
-    color: ${({ maincolor }) => maincolor};
+    color: ${({ color }) => color};
     font-size: 1.2em;
     position: absolute;
     top: 0.8px;
@@ -335,18 +289,16 @@ export const Container = styled.div<VideoProps>`
   .vjs-skip-backward-10 {
     grid-area: backward;
 
-    background-image: url('/player/backward.svg');
-    background-repeat: no-repeat;
-    background-size: 28px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/backward.svg', size: '28px' })}
 
     @media(max-width: 480px) {
       background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
   }
 
@@ -354,25 +306,24 @@ export const Container = styled.div<VideoProps>`
   .vjs-skip-forward-10 {
     grid-area: forward;
 
-    background-image: url('/player/forward.svg');
-    background-repeat: no-repeat;
-    background-size: 30px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/forward.svg', size: '30px' })}
 
     @media(max-width: 480px) {
       background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
   }
 
   // ⏯
   .vjs-play-control {
     grid-area: play;
-    background-image: url('/player/play.svg');
+
+    ${image({ img: '/player/play.svg', size: '24px' })}
 
     &.vjs-paused {
       background-image: url('/player/play.svg');
@@ -382,17 +333,14 @@ export const Container = styled.div<VideoProps>`
       background-image: url('/player/pause.svg');
     }
 
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: 50% calc(50% - 10px);
-
     @media(max-width: 480px) {
       background-size: 20px;
     }
     
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
   }
 
@@ -401,18 +349,16 @@ export const Container = styled.div<VideoProps>`
     grid-area: pictureInPicture;
     margin-top: 1px;
 
-    background-image: url('/player/picture-in-picture.svg');
-    background-repeat: no-repeat;
-    background-size: 28px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/picture-in-picture.svg', size: '28px' })}
 
     @media(max-width: 480px) {
       background-size: 22px;
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
   }
 
@@ -420,10 +366,7 @@ export const Container = styled.div<VideoProps>`
   .vjs-fullscreen-control {
     grid-area: fullscreen;
 
-    background-image: url('/player/fullscreen.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: 50% calc(50% - 12px);
+    ${image({ img: '/player/fullscreen.svg', size: '20px' })}
 
     @media(max-width: 480px) {
       background-size: 15px;
@@ -431,8 +374,9 @@ export const Container = styled.div<VideoProps>`
     }
 
     .vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
   }
 
@@ -446,10 +390,7 @@ export const Container = styled.div<VideoProps>`
     position: relative;
     padding: 0;
 
-    background-image: url('/player/fast-forward.svg');
-    background-repeat: no-repeat;
-    background-size: 26px;
-    background-position: 50% calc(50% - 10px);
+    ${image({ img: '/player/fast-forward.svg', size: '26px' })}
 
     @media(max-width: 480px) {
       background-size: 20px;
@@ -457,8 +398,9 @@ export const Container = styled.div<VideoProps>`
     }
 
     &.vjs-icon-placeholder:before {
-      content: "";
-      display: none;
+      ${insideIcon}
+      /* content: "";
+      display: none; */
     }
 
     @media(min-width: 480px) {
@@ -469,30 +411,13 @@ export const Container = styled.div<VideoProps>`
       }
   
       & > .vjs-menu:after {
-        content: '';
-        width: 14px;
-        height: 14px;
-        background-color: red;
-        background-color: #000000;
-        position: absolute;
-        bottom: 4.2rem;
-        right: 0.8rem;
-        z-index: 10;
-        transform: rotate(45deg);
+        ${arrow({ right: '0.8rem' })}
       }
     }
 
 
     & > .vjs-menu > .vjs-menu-content:before {
-      height: 24px;
-      padding: 0 1rem 0 0;
-      content: 'Velocidade de reprodução';
-      border-bottom: 1px solid #E3E5E833;
-      position: absolute;
-      left: 0.5rem;
-      right: 0.5rem;
-      text-align: start;
-      justify-content: flex-start;
+      ${menuContent({ title: 'Velocidade de reprodução' })}
     }
   }
 
@@ -506,12 +431,10 @@ export const Container = styled.div<VideoProps>`
       font-size: 1rem;
 
       .vjs-remaining-time-display:after {
-        content: ${({ timetotal }) => `'${timetotal}'`};
+        content: ${({ time }) => `'${time}'`};
         color: #ced4da;
       }
     }
-
-
   }
 
   // video volume
@@ -523,10 +446,10 @@ export const Container = styled.div<VideoProps>`
     }
 
     .vjs-volume-level {
-      background-color: ${({ maincolor }) => maincolor};
+      background-color: ${({ color }) => color};
 
       &:before {
-        color: ${({ maincolor }) => maincolor };
+        color: ${({ color }) => color };
       }
     }
 
