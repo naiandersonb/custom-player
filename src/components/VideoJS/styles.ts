@@ -163,10 +163,10 @@ export const Container = styled.div<VideoProps>`
       background-size: 20px;
     }
 
+    
+
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
 
     @media(min-width: 480px) {
@@ -187,7 +187,7 @@ export const Container = styled.div<VideoProps>`
   }
 
   // 📜 legends / captions
-  .vjs-subs-caps-button {
+  /* .vjs-subs-caps-button {
     grid-area: subsCaps;
     position: relative;
 
@@ -199,8 +199,6 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
 
     @media(min-width: 480px) {
@@ -219,7 +217,7 @@ export const Container = styled.div<VideoProps>`
     & > .vjs-menu > .vjs-menu-content:before {
       ${menuContent({ title: 'Configurar legenda' })}
     }
-  }
+  } */
 
   // subtitles configuration modal
   .vjs-text-track-settings {
@@ -297,8 +295,6 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
   }
 
@@ -314,8 +310,6 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
   }
 
@@ -339,8 +333,6 @@ export const Container = styled.div<VideoProps>`
     
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
   }
 
@@ -357,8 +349,6 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
   }
 
@@ -375,8 +365,6 @@ export const Container = styled.div<VideoProps>`
 
     .vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
   }
 
@@ -399,8 +387,6 @@ export const Container = styled.div<VideoProps>`
 
     &.vjs-icon-placeholder:before {
       ${insideIcon}
-      /* content: "";
-      display: none; */
     }
 
     @media(min-width: 480px) {

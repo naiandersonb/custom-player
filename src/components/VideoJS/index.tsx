@@ -23,13 +23,13 @@ export const VideoJS = () => {
   const playerRef = useRef<any>()
   const [timeTotal, setTimeTotal] = useState('')
 
-  const captionOption = useMemo(() => {
-    return {
-      srclang: 'pt',
-      label: 'Português',
-      src: '/example.vtt',
-    };
-  }, [])
+  // const captionOption = useMemo(() => {
+  //   return {
+  //     srclang: 'pt',
+  //     label: 'Português',
+  //     src: '/example.vtt',
+  //   };
+  // }, [])
 
   const videoJsOptions = useMemo(() => {
     return {
@@ -50,14 +50,6 @@ export const VideoJS = () => {
       sources: [
         {
           src:
-            "https://vz-23fa8c41-cba.b-cdn.net/8be7d468-e067-4aea-8dfd-a38cd780ba78/playlist.m3u8",
-          type: "application/x-mpegURL",
-          label: "1440p",
-          selected: true,
-          res: 1440
-        },
-        {
-          src:
             "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
           type: "application/x-mpegURL",
           label: "1080p",
@@ -70,7 +62,15 @@ export const VideoJS = () => {
           label: "720p",
           selected: false,
           res: 720
-        }
+        },
+        {
+          src:
+            "https://vz-23fa8c41-cba.b-cdn.net/8be7d468-e067-4aea-8dfd-a38cd780ba78/playlist.m3u8",
+          type: "application/x-mpegURL",
+          label: "360p",
+          selected: true,
+          res: 360
+        },
       ]
     };
   }, [])
@@ -107,7 +107,7 @@ export const VideoJS = () => {
             setTimeTotal(duration)
         });
 
-        player.addRemoteTextTrack(captionOption, true);
+        // player.addRemoteTextTrack(captionOption, true);
 
         player.on("ended", () => {
           alert('video finalizado')
@@ -121,11 +121,11 @@ export const VideoJS = () => {
         });
       }))
     }
-  }, [captionOption, videoJsOptions]);
+  }, [videoJsOptions]);
 
 
   return(
-    <Container time={timeTotal} color='#e4951e'>
+    <Container time={timeTotal} color='#1ee4d3'>
       <video
         style={{ width: "100%" }}
         ref={videoPlayerRef}
