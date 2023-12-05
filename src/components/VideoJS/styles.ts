@@ -30,6 +30,10 @@ export const Container = styled.div<VideoProps>`
     }
   }
 
+  .vjs-workinghover .vjs-menu-button-popup:hover .vjs-menu { 
+    display: none; 
+  }
+
   .vjs-big-play-button {
     background-color: ${({ color }) => color};
     ${size({height: '86px', width: '86px'})}
@@ -220,7 +224,7 @@ export const Container = styled.div<VideoProps>`
   } */
 
   // subtitles configuration modal
-  .vjs-text-track-settings {
+  /* .vjs-text-track-settings {
     .vjs-modal-dialog-content {
       & select {
         border-radius: 5px;
@@ -241,7 +245,7 @@ export const Container = styled.div<VideoProps>`
     @media(max-width: 480px) {
         height: 100%;
     }
-  }
+  } */
 
   // full progress bar
   .vjs-progress-control {

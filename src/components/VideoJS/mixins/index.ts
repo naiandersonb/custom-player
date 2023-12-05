@@ -7,11 +7,11 @@ export const size = ({height = 'initial', width =  'initial'}) => css`
 
 export const grid = css`
   display: grid;
-  grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content max-content;
+  grid-template-columns: max-content max-content max-content 1fr max-content max-content max-content ;
 
   grid-template-areas: 
-    'progress progress progress progress progress progress progress progress progress progress progress'
-    'backward play forward . time volume subsCaps quality playback pictureInPicture fullscreen';
+    'progress progress progress progress progress progress progress progress progress progress'
+    'backward play forward . time volume quality playback pictureInPicture fullscreen';
 `
 
 export const arrow = ({ right }: {right: string}) =>css`
